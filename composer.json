@@ -23,7 +23,11 @@
     "autoload": {
         "psr-4": {
             "Betweenapp\\Backend\\": "src"
-        }
+        },
+        "classmap": [
+            "database/seeds",
+            "database/factories"
+        ]
     },
     "extra": {
         "branch-alias": {
@@ -34,5 +38,7 @@
                 "Betweenapp\\Backend\\BackendServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

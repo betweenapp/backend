@@ -12,7 +12,7 @@ class ListService extends BaseService
 
     public function handle($data = [])
     {
-        return new GenericPayload($this->entity->get());
+        return new GenericPayload($this->entity->paginate(10));
     }
 
 }
