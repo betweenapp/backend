@@ -13,7 +13,6 @@
 </html>
 <body>
 <div id="backend" v-cloak>
-
 </div>
-<script src="{{asset(mix('main.js', 'vendor/betweenapp/backend'))}}"></script>
+<script src="{{asset('vendor/betweenapp/backend/main.js')}}"></script>
 </body>

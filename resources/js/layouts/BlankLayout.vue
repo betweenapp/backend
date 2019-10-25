@@ -1,12 +1,12 @@
 <template>
-  <div id="backend">
-    <router-view></router-view>
+  <div class="router-transitions">
+    Hello
+    <router-view />
   </div>
 </template>
 
 <script>
 export default {
-  name: "App"
 }
 </script>
 

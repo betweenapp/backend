@@ -11,8 +11,8 @@ use Betweenapp\Backend\Exceptions\DuplicatedListAliasRegistrationException;
 use Betweenapp\Backend\Tests\FeatureTestCase;
 use Betweenapp\Backend\Facades\BackendComponent;
 use Betweenapp\Backend\Components\ComponentManager;
-use Betweenapp\Backend\Components\Form\FormRowComponent;
-use Betweenapp\Backend\Components\Form\TextInputComponent;
+use Betweenapp\Backend\Components\Form\FormRow;
+use Betweenapp\Backend\Components\Form\TextInput;
 
 class ComponentManagerTest extends FeatureTestCase
 {
@@ -33,7 +33,7 @@ class ComponentManagerTest extends FeatureTestCase
 
     public function test_backend_component_can_register_a_form_component()
     {
-        BackendComponent::registerFormComponent('ba-text-input', TextInputComponent::class);
+        BackendComponent::registerFormComponent('ba-text-input', TextInput::class);
         $this->assertCount(1, BackendComponent::getFormComponents());
 
     }
@@ -41,8 +41,8 @@ class ComponentManagerTest extends FeatureTestCase
     public function test_it_throws_an_exception_if_duplicated_alias_form_component_is_registered()
     {
         $this->expectException(DuplicatedFormAliasRegistrationException::class);
-        BackendComponent::registerFormComponent('ba-text-input', TextInputComponent::class);
-        BackendComponent::registerFormComponent('ba-text-input', FormRowComponent::class);
+        BackendComponent::registerFormComponent('ba-text-input', TextInput::class);
+        BackendComponent::registerFormComponent('ba-text-input', FormRow::class);
     }
 
     public function test_it_can_register_a_list_component()
@@ -54,16 +54,16 @@ class ComponentManagerTest extends FeatureTestCase
     public function test_it_throws_an_exception_if_duplicated_alias_list_component_is_registered()
     {
         $this->expectException(DuplicatedListAliasRegistrationException::class);
-        BackendComponent::registerListComponent('ba-text-input', TextInputComponent::class);
-        BackendComponent::registerListComponent('ba-text-input', FormRowComponent::class);
+        BackendComponent::registerListComponent('ba-text-input', TextInput::class);
+        BackendComponent::registerListComponent('ba-text-input', FormRow::class);
     }
 
     public function test_make_component_returns_a_instance_of_the_component()
     {
-        BackendComponent::registerFormComponent('ba-text-input', TextInputComponent::class);
+        BackendComponent::registerFormComponent('ba-text-input', TextInput::class);
         $textInputComponent = BackendComponent::makeFormComponent('ba-text-input', []);
 
-        $this->assertInstanceOf(TextInputComponent::class, $textInputComponent);
+        $this->assertInstanceOf(TextInput::class, $textInputComponent);
 
     }
 

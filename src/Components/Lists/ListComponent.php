@@ -4,6 +4,7 @@
 namespace Betweenapp\Backend\Components\Lists;
 
 use Betweenapp\Backend\Components\ComponentBase;
+use Illuminate\Support\Facades\Event;
 
 class ListComponent extends ComponentBase
 {
@@ -73,6 +74,7 @@ class ListComponent extends ComponentBase
     protected function makeColumns($columns)
     {
         $this->makeChildren('columns', $columns);
+        Event::dispatch('backend.list.extendedColumns', $this);
     }
 
 }

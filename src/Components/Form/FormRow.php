@@ -6,7 +6,7 @@ namespace Betweenapp\Backend\Components\Form;
 
 use Betweenapp\Backend\Components\ComponentBase;
 
-class FormRowComponent extends ComponentBase
+class FormRow extends ComponentBase
 {
 
     public $alias = 'ba-form-row';

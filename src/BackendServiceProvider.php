@@ -9,6 +9,7 @@ use Betweenapp\Backend\Components\Lists\ListColumnComponent;
 use Betweenapp\Backend\Components\Lists\ListComponent;
 use Betweenapp\Backend\Facades\BackendComponent;
 use Betweenapp\Backend\Http\Actions\IndexAction;
+use Betweenapp\Backend\Http\Controllers\Web\Dashboard;
 use Betweenapp\Backend\Http\Responders\ListResponder;
 use Betweenapp\Backend\Services\ListService;
 use Illuminate\Support\Facades\Route;
@@ -40,10 +41,16 @@ class BackendServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('backend.component.manager', function () {
-           return ComponentManager::instance();
-        });
+        $this->registerFacades();
         $this->registerBackendComponents();
+    }
+
+
+    private function registerFacades()
+    {
+        $this->app->bind('backend.component.manager', function () {
+            return ComponentManager::instance();
+        });
     }
 
 
@@ -52,13 +59,26 @@ class BackendServiceProvider extends ServiceProvider
      */
     private function registerRoutes()
     {
+
+        Route::group($this->webBaseRouteConfiguration(), function () {
+            $this->loadRoutesFrom(__DIR__ . '/Http/Routes/base.php');
+        });
+
         Route::group($this->webRouteConfiguration(), function () {
-            $this->loadRoutesFrom(__DIR__.'/Http/web.php');
+            $this->loadRoutesFrom(__DIR__ . '/Http/Routes/web.php');
         });
 
         Route::group($this->apiRouteConfiguration(), function () {
-            $this->loadRoutesFrom(__DIR__.'/Http/api.php');
+            $this->loadRoutesFrom(__DIR__ . '/Http/Routes/api.php');
         });
+    }
+
+
+    private function webBaseRouteConfiguration()
+    {
+        return [
+            'namespace' => 'Betweenapp\Backend\Http\Controllers\Web',
+        ];
     }
 
     /**
@@ -82,7 +102,7 @@ class BackendServiceProvider extends ServiceProvider
     {
 
         return [
-            'prefix' => 'api/backend',
+            'prefix' => 'api/betweenapp/backend',
             'namespace' => 'Betweenapp\Backend\Http\Controllers\Api',
         ];
     }
@@ -110,8 +130,8 @@ class BackendServiceProvider extends ServiceProvider
      */
     protected function registerBackendComponents()
     {
-        BackendComponent::registerListComponent('ba-list', ListComponent::class);
-        BackendComponent::registerListComponent('ba-list-column', ListColumnComponent::class);
+        BackendComponent::registerListComponent('list', ListComponent::class);
+        BackendComponent::registerListComponent('list-column', ListColumnComponent::class);
     }
 
 

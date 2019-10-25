@@ -5,6 +5,7 @@ namespace Betweenapp\Backend\Components;
 
 use Betweenapp\Backend\Facades\BackendComponent;
 use Betweenapp\Backend\Http\BackendApiController;
+use Illuminate\Support\Facades\Event;
 
 abstract class ComponentBase
 {
@@ -48,8 +49,9 @@ abstract class ComponentBase
      * Initialize the widget, called by the constructor and free from its parameters.
      * @return void
      */
-    public function init()
+    public function init($model, $context)
     {
+
     }
 
     public function toJson()
@@ -61,7 +63,7 @@ abstract class ComponentBase
         if ($this->components && is_array($this->components)) {
             $definition = array_merge($definition, ['components' => $this->components]);
         }
-        return json_encode($definition);
+        return json_encode((object) $definition, true);
     }
 
     public function makeConfiguration($configuration = [])
@@ -84,9 +86,9 @@ abstract class ComponentBase
     public function makeChildren($childrenType, $children) {
         foreach ($children as $child) {
             if (is_array($child)) {
-                $this->{$childrenType}[] = BackendComponent::makeListComponent($child['alias'], $child)->toJson();
+                $this->{$childrenType}[] = BackendComponent::makeListComponent($child['alias'], $child);
             } elseif ($child instanceof ComponentBase) {
-                $this->{$childrenType}[] = $child->toJson();
+                $this->{$childrenType}[] = $child;
             }
         }
     }

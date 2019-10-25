@@ -1,4 +1,45 @@
 let mix = require('laravel-mix');
+const webpack = require('webpack');
+
+/*
+ |--------------------------------------------------------------------------
+ | Mix config
+ |--------------------------------------------------------------------------
+ */
+
+mix.options({
+  postCss: [require('autoprefixer')]
+});
+
+mix.webpackConfig({
+  node: {
+    fs: "empty"
+  },
+  output: {
+    publicPath: '/',
+    chunkFilename: 'vendor/betweenapp/backend/[name].js',
+  },
+  module: {
+    rules: [{
+      test: /node_modules(?:\/|\\).+\.js$/,
+      loader: 'babel-loader',
+      options: {
+        plugins: ['@babel/plugin-syntax-dynamic-import']
+      }
+    }]
+  },
+  resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      '@/backend': path.resolve(__dirname, 'resources/js/')
+    }
+  }
+})
+
+mix.setPublicPath('public')
+    .js('resources/js/main.js', 'public/vendor/betweenapp/backend')
+    .copy('public/vendor/betweenapp/backend', '../../../public/vendor/betweenapp/backend')
+
 
 /*
  |--------------------------------------------------------------------------
@@ -10,11 +51,6 @@ let mix = require('laravel-mix');
  | file for your application, as well as bundling up your JS files.
  |
  */
-
-mix.setPublicPath('public')
-    .js('resources/js/main.js', 'public')
-    .copy('public', '../../../public/vendor/betweenapp/backend')
-    .version()
 
 // Full API
 // mix.js(src, output);

@@ -6,7 +6,7 @@ namespace Betweenapp\Backend\Components\Form;
 
 use Betweenapp\Backend\Components\ComponentBase;
 
-class TextInputComponent extends ComponentBase
+class TextInput extends ComponentBase
 {
 
     public $field;
