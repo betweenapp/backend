@@ -19,17 +19,16 @@ use Illuminate\Support\Facades\Hash;
 abstract class BackendApiController extends BackendController
 {
 
-    protected $listService = ListService::class;
-    protected $listResponder = ListResponder::class;
+	protected $listService = ListService::class;
+	protected $listResponder = ListResponder::class;
 
-    protected $listConfigClass;
+	protected $listConfigClass;
 
-    protected $listRelations = [];
-    protected $showRelations = [];
+	protected $listRelations = [];
+	protected $showRelations = [];
 
 
-
-    public function index(Request $request)
+	public function index(Request $request)
 	{
 
 		$perspective = $request->get('perspective') ? $request->get('perspective') : 'index';
@@ -54,52 +53,62 @@ abstract class BackendApiController extends BackendController
 		);
 
 
-    }
+	}
 
 	protected function getRecords(Request $request)
 	{
 
 		$sort = $request->get('sort');
 
-		//dd($sort);
-
-
 		return $this->builder->orderBy($sort['key'], $sort['order'])
 			->paginate($request->get('perPage'));
 
 	}
 
-    protected function getEntityResource($perspective)
+	protected function getEntityResource($perspective)
 	{
+
 		return $this->listConfigClass::getEntityResource($perspective);
+
 	}
 
-    protected function getListDefinition($perspective)
+	protected function getListDefinition($perspective)
 	{
 		return $this->listConfigClass::create($this, $this->entity, $perspective)->init();
 	}
 
 
+	public function create()
+	{
 
-    public function create()
-		{
+		$formConfiguration = $this->formConfigClass::create($this, $this->entity, 'login')->init();
+		return response()->json($formConfiguration, 200);
 
-			$formConfiguration = $this->formConfigClass::create($this, $this->entity, 'login')->init();
-			return response()->json($formConfiguration, 200);
+	}
 
-		}
+	public function store()
+	{
+	}
 
-    public function store() {}
+	public function show()
+	{
+	}
 
-    public function show() {}
+	public function update()
+	{
+	}
 
-    public function update() {}
+	public function destroy()
+	{
+	}
 
-    public function destroy() {}
+	public function listDefinitions()
+	{
+	}
 
-    public function listDefinitions() {}
-
-    public function createDefinitions() {}
+	public function createDefinitions()
+	{
+	}
 
 
 }
