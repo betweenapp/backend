@@ -6,13 +6,16 @@
     <div class="betweenapp-container-right">
       <slot name="navbar"/>
       <slot></slot>
+      <div class="router-transitions">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "LayoutInside"
+  name: "BackendLayout"
 }
 </script>
 

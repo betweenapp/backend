@@ -1,6 +1,5 @@
 <template>
   <div class="router-transitions">
-    Hello
     <router-view />
   </div>
 </template>

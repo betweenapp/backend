@@ -9,72 +9,91 @@ use Illuminate\Support\Facades\Event;
 class ListComponent extends ComponentBase
 {
 
-    /**
-     * @var string The component name
-     */
-    public $alias = 'ba-list';
+	/**
+	 * @var string The component name
+	 */
+	public $alias = 'ba-list';
 
-    /**
-     * @var string The Resource namespace;
-     */
-    public $namespace;
+	/**
+	 * @var string The registered type;
+	 */
+	public $type = 'list';
 
-    /**
-     * @var string The list title;
-     */
-    protected $title;
+	/**
+	 * @var string The Resource namespace;
+	 */
+	public $namespace;
 
-    /**
-     * @var bool If the list is Searchable;
-     */
-    protected $searchable = true;
+	/**
+	 * @var string The list title;
+	 */
+	public $title;
 
-    /**
-     * @var bool Records to display per page, use 0 for no pages. Default: 0;
-     */
-    protected $recordsPerPage = 20;
+	/**
+	 * @var
+	 */
+	protected $controller;
 
-    /**
-     * @var string
-     */
-    protected $sortColumn = 'created_at';
+	/**
+	 * @var
+	 */
+	protected $model;
 
-    /**
-     * @var string
-     */
-    protected $sortDirection = 'desc';
+	/**
+	 * @var
+	 */
+	public $perspective;
 
-    /**
-     * @var array
-     */
-    public $columns = [];
+	/**
+	 * @var bool If the list is Searchable;
+	 */
+	public $searchable = true;
 
-    public function __construct($namespace, $title, $columns, $configuration = [])
-    {
-        $this->namespace = $namespace;
-        $this->title = $title;
-        $this->makeColumns($columns);
-        $this->makeComponentDefinition();
-        parent::__construct($configuration);
-    }
+	/**
+	 * @var bool Records to display per page, use 0 for no pages. Default: 0;
+	 */
+	public $perPage = 10;
 
-    protected function makeComponentDefinition()
-    {
-        $this->componentDefinition =  [
-            'title' => $this->title,
-            'namespace' => $this->namespace,
-            'searchable' => $this->searchable,
-            'recordsPerPage' => $this->recordsPerPage,
-            'sortColumn' => $this->sortColumn,
-            'sortDirection' => $this->sortDirection,
-            'columns' => $this->columns
-        ];
-    }
+	/**
+	 * @var string
+	 */
+	public $sort = [ 'key' => 'created_at', 'order' => 'desc' ];
 
-    protected function makeColumns($columns)
-    {
-        $this->makeChildren('columns', $columns);
-        Event::dispatch('backend.list.extendedColumns', $this);
-    }
+
+	/**
+	 * @var array
+	 */
+	public $columns = [];
+
+
+
+
+	public function __construct($controller, $model, $perspective, $configuration = [])
+	{
+		$this->controller = $controller;
+		$this->model = $model;
+		$this->perspective = $perspective;
+		parent::__construct($configuration);
+	}
+
+
+	public function init()
+	{
+		$this->registerEvents();
+		$this->makeChildren('columns');
+		return parent::init();
+	}
+
+
+	protected function registerEvents()
+	{
+
+		Event::listen('list::extendedChild', function ($type, $child, $model) {
+
+		});
+
+
+	}
+
 
 }

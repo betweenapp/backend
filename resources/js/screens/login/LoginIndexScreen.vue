@@ -1,33 +1,43 @@
 <template>
-  <div class="login">
-    Hello from login again
-  </div>
+    <div class="login-screen d-flex justify-content-center align-items-center">
+      <b-card>
+        <component :is="config.alias" v-bind="config" v-if="config" />
+      </b-card>
+    </div>
 </template>
 
 <script>
 import ApiService from "../../services/api.service";
+import BaseForm from "../../components/form/BaseForm";
 
 export default {
-
   mounted() {
     this.getFormDefinition()
   },
 
+  data() {
+    return {
+      config: null
+    }
+  },
+
   methods: {
-    async getFormDefinition () {
+    async getFormDefinition() {
 
       const requestData = {
         method: 'GET',
-        url: 'api/betweenapp/backend/login/form-config'
+        url: '/betweenapp/backend/login/create'
       }
 
       const response = await ApiService.customRequest(requestData);
-      console.log(response)
+      this.config = response.data
     }
   }
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.login-screen {
+  height: 100vh;
+}
 </style>

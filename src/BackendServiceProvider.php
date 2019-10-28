@@ -4,7 +4,8 @@
 namespace Betweenapp\Backend;
 
 
-use Betweenapp\Backend\Components\ComponentManager;
+use Betweenapp\Backend\Classes\ComponentManager;
+use Betweenapp\Backend\Components\Forms\FormComponent;
 use Betweenapp\Backend\Components\Lists\ListColumnComponent;
 use Betweenapp\Backend\Components\Lists\ListComponent;
 use Betweenapp\Backend\Facades\BackendComponent;
@@ -60,26 +61,17 @@ class BackendServiceProvider extends ServiceProvider
     private function registerRoutes()
     {
 
-        Route::group($this->webBaseRouteConfiguration(), function () {
-            $this->loadRoutesFrom(__DIR__ . '/Http/Routes/base.php');
+        Route::group($this->webRouteConfiguration(), function () {
+            $this->loadRoutesFrom(__DIR__ . '/Http/web.php');
         });
 
-        Route::group($this->webRouteConfiguration(), function () {
-            $this->loadRoutesFrom(__DIR__ . '/Http/Routes/web.php');
-        });
 
         Route::group($this->apiRouteConfiguration(), function () {
-            $this->loadRoutesFrom(__DIR__ . '/Http/Routes/api.php');
+            $this->loadRoutesFrom(__DIR__ . '/Http/api.php');
         });
     }
 
 
-    private function webBaseRouteConfiguration()
-    {
-        return [
-            'namespace' => 'Betweenapp\Backend\Http\Controllers\Web',
-        ];
-    }
 
     /**
      * Get the Backend web routes group configuration array.
@@ -90,7 +82,7 @@ class BackendServiceProvider extends ServiceProvider
     {
         return [
             'prefix' => 'backend',
-            'namespace' => 'Betweenapp\Backend\Http\Controllers\Web',
+            'namespace' => 'Betweenapp\Backend\Http\Controllers',
         ];
     }
 
@@ -103,7 +95,7 @@ class BackendServiceProvider extends ServiceProvider
 
         return [
             'prefix' => 'api/betweenapp/backend',
-            'namespace' => 'Betweenapp\Backend\Http\Controllers\Api',
+            'namespace' => 'Betweenapp\Backend\Http\Controllers',
         ];
     }
 
@@ -115,11 +107,9 @@ class BackendServiceProvider extends ServiceProvider
      */
     private function registerPublishing()
     {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__.'/../public' => public_path('vendor/betweenapp/backend'),
-            ], 'betweenapp-backend-assets');
-        }
+		$this->publishes([
+			__DIR__.'/../public' => public_path(''),
+		], 'betweenapp-backend-assets');
     }
 
 
@@ -130,6 +120,9 @@ class BackendServiceProvider extends ServiceProvider
      */
     protected function registerBackendComponents()
     {
+
+        BackendComponent::registerFormComponent('form', FormComponent::class);
+
         BackendComponent::registerListComponent('list', ListComponent::class);
         BackendComponent::registerListComponent('list-column', ListColumnComponent::class);
     }

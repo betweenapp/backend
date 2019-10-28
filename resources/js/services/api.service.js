@@ -1,4 +1,4 @@
-import axios from 'axios/index'
+import axios from 'axios'
 import { TokenService } from "./storage.service";
 
 const ApiService = {
@@ -51,7 +51,7 @@ const ApiService = {
     },
     async (error) => {
       if (error.request.status === 401) {
-        window.location = process.env.APP_URL + '/login'
+        window.location = process.env.APP_URL + '/backend/login'
       }
 
     }))

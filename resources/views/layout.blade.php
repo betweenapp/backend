@@ -14,5 +14,8 @@
 <body>
 <div id="backend" v-cloak>
 </div>
+
+
+<script src="{{asset('extensions.js')}}"></script>
 <script src="{{asset('vendor/betweenapp/backend/main.js')}}"></script>
 </body>

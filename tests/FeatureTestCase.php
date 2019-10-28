@@ -4,6 +4,7 @@
 namespace Betweenapp\Backend\Tests;
 
 
+use Betweenapp\Backend\Facades\BackendComponent;
 use Orchestra\Testbench\TestCase;
 use Betweenapp\Backend\BackendServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -19,6 +20,7 @@ class FeatureTestCase extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        BackendComponent::flushComponentsRegistration();
     }
 
     /**

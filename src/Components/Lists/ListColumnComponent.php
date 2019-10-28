@@ -11,42 +11,30 @@ class ListColumnComponent extends ComponentBase
 
     public $alias = 'ba-list-column';
 
+    public $type = 'list-column';
+
     public $field;
 
     public $label;
 
-    public $component;
+    public $value;
 
-    protected $defaultConfig = [
-        'sortable' => false,
-        'width' => '',
-    ];
+
 
 
     /**
      * ColumnComponent constructor.
      * @param $field
      * @param $label
-     * @param $component
      * @param array $configuration
      */
-    public function __construct($field, $label, $component, $configuration = [])
+    public function __construct($field, $label, $configuration = [])
     {
         $this->field = $field;
         $this->label = $label;
-        $this->component = $component;
-        $this->makeComponentDefinition();
         parent::__construct($configuration);
     }
 
-    protected function makeComponentDefinition()
-    {
-        $this->componentDefinition =  [
-            'field' => $this->field,
-            'label' => $this->label,
-            'component' => $this->component
-        ];
-    }
 
 
 }
