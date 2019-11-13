@@ -1,15 +1,16 @@
 <template>
   <div class="list-screen container">
-    <list :endpoint="endpoint" />
+    <component :is="listing" />
   </div>
 </template>
 
 <script>
-  import List from "../../components/list/index"
+
+  import ListingDirector from "../../builders/ListingDirector";
+  import ListingBuilder from "../../builders/ListingBuilder";
 
   export default {
     name: "ListIndexScreen",
-    components: { List },
     props: {
       vendor: {
         type: String,
@@ -30,6 +31,12 @@
 
       endpoint() {
         return `${this.vendor}/${this.package}/${this.controller}`
+      },
+
+      listing () {
+        return this.vendor ? new ListingDirector(
+          new ListingBuilder( this.endpoint )
+        ).makeListing() : null
       }
 
     },

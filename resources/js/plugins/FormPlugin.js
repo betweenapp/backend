@@ -6,9 +6,9 @@ const formPlugin = {
     //Register form components
 
 
-    Vue.component('ba-form', require('../components/form/BaseForm').default)
-    Vue.component('ba-form-row', require('../components/form/FormRow').default)
-    Vue.component('ba-text-input', require('../components/form/Inputs/TextInput').default)
+    Vue.component('ba-form', require('../components/base/form/BaseForm').default)
+    Vue.component('ba-form-row', require('../components/base/form/FormRow').default)
+    Vue.component('ba-text-input', require('../components/base/form/Inputs/TextInput').default)
 
     Vue.mixin({
 

@@ -8,7 +8,7 @@
 
 <script>
 import ApiService from "../../services/api.service";
-import BaseForm from "../../components/form/BaseForm";
+import BaseForm from "../../components/base/form/BaseForm";
 
 export default {
   mounted() {

@@ -1,7 +1,5 @@
 <template>
   <div class="list">
-
-
     <b-card v-if="Object.keys(list).length">
       <template v-slot:header>
         <div class="list-header row align-items-center">
@@ -45,7 +43,8 @@
 </template>
 
 <script>
-import ApiService from "../../services/api.service"
+import ApiService from "../../../services/api.service"
+
 export default {
   props: {
     endpoint: {
@@ -53,7 +52,7 @@ export default {
       required: true
     }
   },
-  name: 'ListComponent',
+  name: 'BaseListIndex',
 
   data() {
 

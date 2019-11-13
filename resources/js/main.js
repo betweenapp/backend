@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import router  from './routes'
+import globals from './components/_globals'
 import FormPlugin from './plugins/FormPlugin'
 import ApiServicePlugin from "./plugins/ApiServicePlugin";
 import BootstrapVue from 'bootstrap-vue'

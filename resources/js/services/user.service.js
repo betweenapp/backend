@@ -51,8 +51,8 @@ const UserService = {
         username: email,
         password: password,
         scope: '*',
-        client_id:  process.env.MIX_BETWEENAPP_CLIENT_ID, //'5db59b3291abbc15a32f230c', //process.env.VUE_APP_CLIENT_ID,
-        client_secret: process.env.MIX_BETWEENAPP_CLIENT_SCECRET, //'ejEzzNzHMM9SM0EgxaeMeNGgS3eScdjlfeRwKaim', //process.env.VUE_APP_CLIENT_SECRET
+        client_id: process.env.MIX_BETWEENAPP_CLIENT_ID,
+        client_secret: process.env.MIX_BETWEENAPP_CLIENT_SCECRET,
       },
     }
 
